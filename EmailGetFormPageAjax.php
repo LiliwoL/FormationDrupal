@@ -76,12 +76,12 @@ class EmailGetFormPageAjax extends FormBase {
             '#required' => TRUE,
             '#ajax' => array(
                 'callback' => '::checkEmailAjax',
-                'wrapper' => 'edit-email',
+                'wrapper' => 'edit-wrapper',
                 'method' => 'replace',
                 'effect' => 'fade',
                 'event' => 'change',
             ),
-            '#prefix' => '<div id="edit-email">',
+            '#prefix' => '<div id="edit-wrapper">',
             '#suffix' => '</div>',
         );
         $form['message'] = array(
@@ -136,10 +136,11 @@ class EmailGetFormPageAjax extends FormBase {
             $css = ['border' => '1px solid red'];
             $message = ('Email not valid.');
         }
-        $response = new \Drupal\Core\Ajax\AjaxResponse();
-        $response->addCommand(new \Drupal\Core\Ajax\CssCommand('#edit-email', $css));
-        $response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#edit-email--description', $message));
-        return $response;
+        $ajax_response = new \Drupal\Core\Ajax\AjaxResponse();
+        $ajax_response->addCommand(new \Drupal\Core\Ajax\CssCommand('#edit-wrapper', $css));
+        $ajax_response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#edit-wrapper--description', $message));
+
+        return $ajax_response;
     }
 
     /**
